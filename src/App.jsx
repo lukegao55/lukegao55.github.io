@@ -91,8 +91,10 @@ const translations = {
         summary: 'AI 让拳伴能更快把训练经验转化成可执行计划，降低内容设计和迭代成本。',
         theme: 'roundbuddy',
         appStoreUrl: 'https://apps.apple.com/us/app/roundbuddy/id6779547962',
+        termsUrl: '/roundbuddy/terms.html',
         privacyUrl: '/roundbuddy/privacy-policy.html',
         appStoreCta: '在 App Store 下载',
+        termsCta: '服务条款',
         privacyCta: '隐私条款',
       },
       {
@@ -284,8 +286,10 @@ const translations = {
           'AI helps RoundBuddy turn training knowledge into executable plans faster, lowering the cost of session design.',
         theme: 'roundbuddy',
         appStoreUrl: 'https://apps.apple.com/us/app/roundbuddy/id6779547962',
+        termsUrl: '/roundbuddy/terms.html',
         privacyUrl: '/roundbuddy/privacy-policy.html',
         appStoreCta: 'Download on the App Store',
+        termsCta: 'Terms of Service',
         privacyCta: 'Privacy policy',
       },
       {
@@ -543,7 +547,7 @@ function PartnerCarousel({ rows }) {
 }
 
 function ProductShowcase({ products, language }) {
-  function getPrivacyUrl(url) {
+  function getLocalizedUrl(url) {
     return `${url}?lang=${language}`
   }
 
@@ -567,15 +571,20 @@ function ProductShowcase({ products, language }) {
               </a>
             </div>
           ) : null}
-          {(product.appStoreUrl || product.privacyUrl) ? (
+          {(product.appStoreUrl || product.termsUrl || product.privacyUrl) ? (
             <div className="product-download-row">
               {product.appStoreUrl ? (
                 <a className="app-store-badge" href={product.appStoreUrl} aria-label={product.appStoreCta}>
                   <img src="/download-on-app-store.svg" alt="" />
                 </a>
               ) : null}
+              {product.termsUrl ? (
+                <a className="product-privacy-link" href={getLocalizedUrl(product.termsUrl)}>
+                  {product.termsCta}
+                </a>
+              ) : null}
               {product.privacyUrl ? (
-                <a className="product-privacy-link" href={getPrivacyUrl(product.privacyUrl)}>
+                <a className="product-privacy-link" href={getLocalizedUrl(product.privacyUrl)}>
                   {product.privacyCta}
                 </a>
               ) : null}
